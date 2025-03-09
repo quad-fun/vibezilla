@@ -27,8 +27,8 @@ const maxRubble = 50;
 
 // Sound effects (preloaded)
 const sounds = {
-    roar: new Audio('./assets/sounds/roar.mp3'),
-    destroy: new Audio('./assets/sounds/destroy.mp3')
+    roar: new Audio('./assets/sounds/roar.wav'),
+    destroy: new Audio('./assets/sounds/destroy.wav')
 };
 
 // Safe play function that won't crash if sound file is missing
