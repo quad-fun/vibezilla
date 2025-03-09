@@ -7,7 +7,7 @@ const config = {
 // Load Google Maps API script
 function loadGoogleMapsAPI() {
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${config.GOOGLE_MAPS_API_KEY}&callback=initGame`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${config.GOOGLE_MAPS_API_KEY}&callback=initGame&loading=async`;
     script.async = true;
     document.body.appendChild(script);
 }

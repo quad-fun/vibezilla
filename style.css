@@ -74,7 +74,7 @@ body {
     position: absolute;
     width: 60px;
     height: 60px;
-    background-image: url('monster.png');
+    background-image: url('./assets/images/monster.png');
     background-size: contain;
     background-repeat: no-repeat;
     transform-origin: center;
@@ -97,7 +97,7 @@ body {
     position: absolute;
     width: 30px;
     height: 30px;
-    background-image: url('rubble.png');
+    background-image: url('./assets/images/rubble.png');
     background-size: contain;
     pointer-events: none;
     z-index: 3;
