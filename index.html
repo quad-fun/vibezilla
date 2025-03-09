@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vibezilla</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="map"></div>
+        <div id="score-container">
+            <div id="score">Score: 0</div>
+            <div id="high-score">High Score: 0</div>
+        </div>
+        <div id="mobile-controls">
+            <div id="joystick-area">
+                <div id="joystick-base">
+                    <div id="joystick-stick"></div>
+                </div>
+            </div>
+        </div>
+        <div id="start-screen">
+            <h1>VIBEZILLA</h1>
+            <p>Destroy buildings and wreak havoc!</p>
+            <button id="start-button">START GAME</button>
+            <div id="instructions">
+                <p>Desktop: Use WASD or arrow keys to move</p>
+                <p>Mobile: Use the joystick to move</p>
+            </div>
+        </div>
+        <div id="game-over-screen" class="hidden">
+            <h1>GAME OVER</h1>
+            <p>Your score: <span id="final-score">0</span></p>
+            <p>High score: <span id="final-high-score">0</span></p>
+            <button id="restart-button">PLAY AGAIN</button>
+        </div>
+    </div>
+
+    <!-- Load scripts -->
+    <script src="game.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDq8B8hZHxvJb0B3MIh4wM0z43Mo-bDxk&callback=initGame">
+    </script>
+</body>
+</html>
