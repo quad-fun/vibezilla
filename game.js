@@ -30,6 +30,7 @@ const sounds = {
     roar: new Audio('./assets/sounds/roar.mp3'),
     destroy: new Audio('./assets/sounds/destroy.mp3')
 };
+
 // Safe play function that won't crash if sound file is missing
 function playSound(soundName) {
     try {
@@ -436,30 +437,39 @@ function updateMonsterMovement(deltaTime) {
 
 // Update the monster's position on screen
 function updateMonsterPosition() {
-    const projection = map.getProjection();
-    if (!projection) return;
+    // Check if map and projection are initialized
+    if (!map || !map.getProjection()) {
+        // If not ready, try again in a moment
+        setTimeout(updateMonsterPosition, 100);
+        return;
+    }
     
-    const point = projection.fromLatLngToPoint(monster.position);
-    const scale = 1 << map.getZoom();
-    
-    const pixelPoint = new google.maps.Point(
-        point.x * scale,
-        point.y * scale
-    );
-    
-    const mapDiv = map.getDiv();
-    const mapRect = mapDiv.getBoundingClientRect();
-    
-    const x = pixelPoint.x - mapRect.left - monster.size / 2;
-    const y = pixelPoint.y - mapRect.top - monster.size / 2;
-    
-    monster.element.style.left = `${x}px`;
-    monster.element.style.top = `${y}px`;
-    
-    // Add a slight rotation based on movement direction
-    const angle = Math.atan2(monsterSpeed.y, monsterSpeed.x) * 180 / Math.PI;
-    if (Math.abs(monsterSpeed.x) > 5 || Math.abs(monsterSpeed.y) > 5) {
-        monster.element.style.transform = `rotate(${angle}deg)`;
+    try {
+        const projection = map.getProjection();
+        const point = projection.fromLatLngToPoint(monster.position);
+        const scale = 1 << map.getZoom();
+        
+        const pixelPoint = new google.maps.Point(
+            point.x * scale,
+            point.y * scale
+        );
+        
+        const mapDiv = map.getDiv();
+        const mapRect = mapDiv.getBoundingClientRect();
+        
+        const x = pixelPoint.x - mapRect.left - monster.size / 2;
+        const y = pixelPoint.y - mapRect.top - monster.size / 2;
+        
+        monster.element.style.left = `${x}px`;
+        monster.element.style.top = `${y}px`;
+        
+        // Add a slight rotation based on movement direction
+        const angle = Math.atan2(monsterSpeed.y, monsterSpeed.x) * 180 / Math.PI;
+        if (Math.abs(monsterSpeed.x) > 5 || Math.abs(monsterSpeed.y) > 5) {
+            monster.element.style.transform = `rotate(${angle}deg)`;
+        }
+    } catch (error) {
+        console.log("Error updating monster position:", error);
     }
 }
 
