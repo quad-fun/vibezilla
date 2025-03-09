@@ -27,9 +27,27 @@ const maxRubble = 50;
 
 // Sound effects (preloaded)
 const sounds = {
-    roar: new Audio('roar.mp3'),
-    destroy: new Audio('destroy.mp3')
+    roar: new Audio('assets/sounds/roar.mp3'),
+    destroy: new Audio('assets/sounds/destroy.mp3')
 };
+// Safe play function that won't crash if sound file is missing
+function playSound(soundName) {
+    try {
+        const sound = sounds[soundName];
+        if (sound) {
+            sound.currentTime = 0;
+            const playPromise = sound.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Audio play error:", error);
+                });
+            }
+        }
+    } catch (e) {
+        console.log("Could not play sound:", soundName);
+    }
+}
 
 // Check if the device is mobile
 function checkMobile() {
@@ -374,6 +392,11 @@ function updateMonsterMovement(deltaTime) {
         monsterSpeed.y *= ratio;
     }
     
+    // Make sure projection is available
+    if (!map || !map.getProjection()) {
+        return; // Exit if map or projection not ready
+    }
+    
     // Update position
     const scale = 1 / Math.pow(2, map.getZoom()) * 256;
     const worldPoint = map.getProjection().fromLatLngToPoint(monster.position);
@@ -385,6 +408,8 @@ function updateMonsterMovement(deltaTime) {
     
     // Keep monster within map bounds
     const bounds = map.getBounds();
+    if (!bounds) return; // Exit if bounds not ready
+    
     const ne = bounds.getNorthEast();
     const sw = bounds.getSouthWest();
     
@@ -404,6 +429,10 @@ function updateMonsterMovement(deltaTime) {
         monster.position = new google.maps.LatLng(monster.position.lat(), sw.lng());
         monsterSpeed.x = 0;
     }
+    
+    // Update monster visual position
+    updateMonsterPosition();
+}
     
     // Update monster visual position
     updateMonsterPosition();
