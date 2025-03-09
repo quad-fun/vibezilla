@@ -202,7 +202,7 @@ function startGame() {
     requestAnimationFrame(gameLoop);
     
     // Play monster roar
-    sounds.roar.play();
+    playSound('roar');
 }
 
 // Initialize Google Maps
@@ -433,10 +433,6 @@ function updateMonsterMovement(deltaTime) {
     // Update monster visual position
     updateMonsterPosition();
 }
-    
-    // Update monster visual position
-    updateMonsterPosition();
-}
 
 // Update the monster's position on screen
 function updateMonsterPosition() {
@@ -522,8 +518,7 @@ function destroyBuilding(building, index, position) {
     updateScore();
     
     // Play destruction sound
-    sounds.destroy.currentTime = 0;
-    sounds.destroy.play();
+    playSound('destroy');
     
     // Create rubble
     createRubble(position);

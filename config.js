@@ -1,7 +1,6 @@
 // API key configuration (load from .env in production)
 const config = {
-    // Replace this with your API key before deploying
-    GOOGLE_MAPS_API_KEY: AIzaSyDDq8B8hZHxvJb0B3MIh4wM0z43Mo
+    // Replace this with your API key before deployin
 };
 
 // Load Google Maps API script
